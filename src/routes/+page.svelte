@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { ChevronDown, ChevronUp } from 'lucide-svelte';
+	import { ChevronDown, ChevronUp, ExternalLink, Link } from 'lucide-svelte';
 
 	const { data } = $props();
 
@@ -31,6 +31,17 @@
 				<div class="flex gap-2 rounded-md border bg-ctp-surface0 pr-2 pl-1">
 					<ChevronDown />
 					{take.downvotes}
+				</div>
+				<div class="grow"></div>
+				<div
+					class="flex aspect-square items-center justify-center gap-2 rounded-md border bg-ctp-surface0"
+				>
+					<ExternalLink class="size-4" />
+				</div>
+				<div
+					class="flex aspect-square items-center justify-center gap-2 rounded-md border bg-ctp-surface0"
+				>
+					<Link class="size-4" />
 				</div>
 			</div>
 		</div>
