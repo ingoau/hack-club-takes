@@ -4,7 +4,7 @@
 	const { data } = $props();
 </script>
 
-<div class="mx-auto max-w-3xl p-4">
+<div class="mx-auto flex max-w-3xl flex-col gap-2 p-4">
 	{#each data.takes as take (take.ts)}
 		<div class="flex flex-col gap-2 rounded-md border bg-ctp-base p-4">
 			<div>
