@@ -1,2 +1,8 @@
 @import 'tailwindcss';
 @import '@catppuccin/tailwindcss/mocha.css';
+
+@layer base {
+	* {
+		@apply border-ctp-surface1;
+	}
+}
