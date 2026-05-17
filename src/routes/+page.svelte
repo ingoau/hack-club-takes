@@ -11,7 +11,7 @@
 		<h1 class="text-4xl">Hack Club Takes</h1>
 		<p>
 			Takes from <a
-				class="rounded-md bg-ctp-surface0 p-1 text-ctp-mauve hover:underline"
+				class="rounded-lg bg-ctp-surface0 p-1 text-ctp-mauve hover:underline"
 				href={`https://hackclub.enterprise.slack.com/archives/${PUBLIC_CHANNEL_ID}`}
 			>
 				#takes
@@ -19,27 +19,27 @@
 		</p>
 	</div>
 	{#each data.takes as take (take.ts)}
-		<div class="flex flex-col gap-2 rounded-md border bg-ctp-base p-4">
+		<div class="flex flex-col gap-2 rounded-lg border bg-ctp-base p-4">
 			<div>
 				{take.content}
 			</div>
 			<div class="flex gap-2">
-				<div class="flex gap-2 rounded-md border bg-ctp-surface0 pr-2 pl-1">
+				<div class="flex gap-2 rounded-lg border bg-ctp-surface0 pr-2 pl-1">
 					<ChevronUp />
 					{take.upvotes}
 				</div>
-				<div class="flex gap-2 rounded-md border bg-ctp-surface0 pr-2 pl-1">
+				<div class="flex gap-2 rounded-lg border bg-ctp-surface0 pr-2 pl-1">
 					<ChevronDown />
 					{take.downvotes}
 				</div>
 				<div class="grow"></div>
 				<div
-					class="flex aspect-square items-center justify-center gap-2 rounded-md border bg-ctp-surface0"
+					class="flex aspect-square items-center justify-center gap-2 rounded-lg border bg-ctp-surface0"
 				>
 					<ExternalLink class="size-4" />
 				</div>
 				<div
-					class="flex aspect-square items-center justify-center gap-2 rounded-md border bg-ctp-surface0"
+					class="flex aspect-square items-center justify-center gap-2 rounded-lg border bg-ctp-surface0"
 				>
 					<Link class="size-4" />
 				</div>
