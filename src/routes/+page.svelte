@@ -24,12 +24,12 @@
 				{take.content}
 			</div>
 			<div class="flex gap-2">
-				<div class="flex gap-2 rounded-lg border bg-ctp-surface0 pr-2 pl-1">
-					<ChevronUp />
+				<div class="flex items-center justify-center gap-2 rounded-lg border bg-ctp-surface0 px-2">
+					<ChevronUp class="size-4" />
 					{take.upvotes}
 				</div>
-				<div class="flex gap-2 rounded-lg border bg-ctp-surface0 pr-2 pl-1">
-					<ChevronDown />
+				<div class="flex items-center justify-center gap-2 rounded-lg border bg-ctp-surface0 px-2">
+					<ChevronDown class="size-4" />
 					{take.downvotes}
 				</div>
 				<div class="grow"></div>
