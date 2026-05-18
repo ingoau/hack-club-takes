@@ -1,10 +1,12 @@
 <script lang="ts">
-	import { ChevronDown, ChevronUp, ExternalLink, Link } from 'lucide-svelte';
+	import { Check, ChevronDown, ChevronUp, ExternalLink, Link } from 'lucide-svelte';
 
 	import { PUBLIC_CHANNEL_ID } from '$env/static/public';
 	import type { PageData } from '../../routes/$types';
 
 	const { take }: { take: PageData['takes'][number] } = $props();
+
+	let copied = $state(false);
 </script>
 
 <div
@@ -42,9 +44,17 @@
 				const url = new URL(location.href);
 				url.hash = take.ts;
 				navigator.clipboard.writeText(url.toString());
+				copied = true;
+				setTimeout(() => {
+					copied = false;
+				}, 2000);
 			}}
 		>
-			<Link class="size-4" />
+			{#if copied}
+				<Check class="size-4" />
+			{:else}
+				<Link class="size-4" />
+			{/if}
 			Copy
 		</button>
 	</div>
