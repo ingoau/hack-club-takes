@@ -1,0 +1,1 @@
+ALTER TABLE "take" ADD COLUMN "deleted" boolean DEFAULT false NOT NULL;
