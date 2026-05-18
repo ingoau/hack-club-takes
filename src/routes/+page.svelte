@@ -25,11 +25,15 @@
 				{take.content}
 			</div>
 			<div class="flex gap-2">
-				<div class="flex items-center justify-center gap-2 rounded-lg border bg-ctp-surface0 px-2">
+				<div
+					class="flex items-center justify-center gap-2 rounded-lg border bg-ctp-red px-2 text-ctp-base"
+				>
 					<ChevronUp class="size-4" />
 					{take.upvotes}
 				</div>
-				<div class="flex items-center justify-center gap-2 rounded-lg border bg-ctp-surface0 px-2">
+				<div
+					class="flex items-center justify-center gap-2 rounded-lg border bg-ctp-blue px-2 text-ctp-base"
+				>
 					<ChevronDown class="size-4" />
 					{take.downvotes}
 				</div>
