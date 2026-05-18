@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { ChevronDown, ChevronUp, ExternalLink, Link } from 'lucide-svelte';
-
 	const { data } = $props();
 
 	import { PUBLIC_CHANNEL_ID } from '$env/static/public';
