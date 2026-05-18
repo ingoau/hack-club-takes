@@ -30,14 +30,6 @@
 			{take.downvotes}
 		</div>
 		<div class="grow"></div>
-		<a
-			class="flex items-center justify-center gap-2 rounded-lg border bg-ctp-surface0 px-2 duration-200 hover:bg-ctp-surface1 active:brightness-75"
-			href={`https://hackclub.slack.com/archives/${PUBLIC_CHANNEL_ID}/p${take.ts}`}
-			target="_blank"
-		>
-			<ExternalLink class="size-4" />
-			Slack
-		</a>
 		<button
 			class="flex items-center justify-center gap-2 rounded-lg border bg-ctp-surface0 px-2 duration-200 hover:bg-ctp-surface1 active:brightness-75"
 			onclick={() => {
@@ -57,5 +49,13 @@
 			{/if}
 			Link
 		</button>
+		<a
+			class="flex items-center justify-center gap-2 rounded-lg border bg-ctp-surface0 px-2 duration-200 hover:bg-ctp-surface1 active:brightness-75"
+			href={`https://hackclub.slack.com/archives/${PUBLIC_CHANNEL_ID}/p${take.ts}`}
+			target="_blank"
+		>
+			<ExternalLink class="size-4" />
+			Slack
+		</a>
 	</div>
 </div>
