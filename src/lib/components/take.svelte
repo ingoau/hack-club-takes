@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Check, ChevronDown, ChevronUp, ExternalLink, Link } from 'lucide-svelte';
+	import { Check, ChevronDown, ChevronUp, Clipboard, ExternalLink, Link } from 'lucide-svelte';
 
 	import { PUBLIC_CHANNEL_ID } from '$env/static/public';
 	import type { PageData } from '../../routes/$types';
@@ -53,9 +53,9 @@
 			{#if copied}
 				<Check class="size-4" />
 			{:else}
-				<Link class="size-4" />
+				<Clipboard class="size-4" />
 			{/if}
-			Copy
+			Link
 		</button>
 	</div>
 </div>
