@@ -20,7 +20,7 @@
 		</p>
 	</div>
 	{#each data.takes as take (take.ts)}
-		<div class="flex flex-col gap-2 rounded-lg border bg-ctp-base p-4">
+		<div class="flex flex-col gap-2 rounded-lg border bg-ctp-base p-4" id={take.ts}>
 			<div>
 				{take.content}
 			</div>
@@ -48,6 +48,11 @@
 				</a>
 				<button
 					class="flex items-center justify-center gap-2 rounded-lg border bg-ctp-surface0 px-2 duration-200 hover:bg-ctp-surface1 active:brightness-75"
+					onclick={() => {
+						const url = new URL(location.href);
+						url.hash = take.ts;
+						navigator.clipboard.writeText(url.toString());
+					}}
 				>
 					<Link class="size-4" />
 					Copy
