@@ -20,7 +20,10 @@
 		</p>
 	</div>
 	{#each data.takes as take (take.ts)}
-		<div class="flex flex-col gap-2 rounded-lg border bg-ctp-base p-4" id={take.ts}>
+		<div
+			class="flex flex-col gap-2 rounded-lg border bg-ctp-base p-4 target:bg-ctp-surface0 target:border-ctp-mauve"
+			id={take.ts}
+		>
 			<div>
 				{take.content}
 			</div>
