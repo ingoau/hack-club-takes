@@ -12,6 +12,7 @@ import { PUBLIC_CHANNEL_ID } from '$env/static/public';
 import { db } from '$lib/server/db/index.js';
 import { take } from '$lib/server/db/schema.js';
 import { authorize } from './authorize';
+import { eq } from 'drizzle-orm';
 
 const app = new SlackApp({
 	env: {
@@ -41,6 +42,20 @@ async function addOrUpdateMessage(
 			return;
 		}
 		takeText = takeText + payload.attachments[0].text;
+	}
+
+	const existingTake = await db.query.take.findFirst({
+		where: eq(take.ts, payload.ts)
+	});
+
+	if (existingTake) {
+		await db
+			.update(take)
+			.set({
+				content: takeText
+			})
+			.where(eq(take.ts, payload.ts));
+		return;
 	}
 
 	await db.insert(take).values({
