@@ -5,7 +5,6 @@ const app = new SlackApp({
 	env: {
 		SLACK_SIGNING_SECRET: SLACK_SIGNING_SECRET!,
 		SLACK_BOT_TOKEN: SLACK_BOT_TOKEN!,
-		SLACK_LOGGING_LEVEL: 'DEBUG'
 	}
 });
 
