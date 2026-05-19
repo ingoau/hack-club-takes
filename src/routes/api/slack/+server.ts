@@ -45,13 +45,16 @@ app.event('message', async ({ payload, context }) => {
 	if (context.channelId === PUBLIC_CHANNEL_ID && payload.type === 'message' && 'text' in payload) {
 		let takeText = payload.text;
 
+		// Handle forwards
 		if (
 			'attachments' in payload &&
 			payload.attachments &&
 			'is_msg_unfurl' in payload.attachments[0] &&
 			payload.attachments[0].is_msg_unfurl
 		) {
+			// If no message text
 			if (takeText.trim().length === 0) {
+				// Error handling...
 				if (!payload.attachments[0].text) {
 					return;
 				}
