@@ -42,9 +42,27 @@ const app = new SlackApp({
 });
 
 app.event('message', async ({ payload, context }) => {
-  if (context.channelId === PUBLIC_CHANNEL_ID && payload.type === 'message' && 'text' in payload) {
-   console.log(`New take: ${payload.text}`);
-  }
+	if (context.channelId === PUBLIC_CHANNEL_ID && payload.type === 'message' && 'text' in payload) {
+		let takeText = payload.text;
+
+		if (
+			'attachments' in payload &&
+			payload.attachments &&
+			'is_msg_unfurl' in payload.attachments[0] &&
+			payload.attachments[0].is_msg_unfurl
+		) {
+			if (takeText.trim().length === 0) {
+				if (!payload.attachments[0].text) {
+					return;
+				}
+				takeText = payload.attachments[0].text;
+			} else {
+				takeText = `${takeText}\n${payload.attachments[0].text}`;
+			}
+		}
+
+		console.log(`New take: ${takeText}`);
+	}
 	return;
 });
 
