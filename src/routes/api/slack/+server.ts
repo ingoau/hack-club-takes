@@ -42,9 +42,9 @@ const app = new SlackApp({
 });
 
 app.event('message', async ({ payload, context }) => {
-	if (context.channelId === PUBLIC_CHANNEL_ID) {
-		console.log(`New take: ${JSON.stringify(payload)}`);
-	}
+  if (context.channelId === PUBLIC_CHANNEL_ID && payload.type === 'message' && 'text' in payload) {
+   console.log(`New take: ${payload.text}`);
+  }
 	return;
 });
 
