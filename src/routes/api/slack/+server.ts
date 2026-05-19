@@ -4,7 +4,7 @@ import { PUBLIC_CHANNEL_ID } from '$env/static/public';
 import { db } from '$lib/server/db/index.js';
 import { take } from '$lib/server/db/schema.js';
 
-async function authorizeWithDebug(): Promise<AuthorizeResult> {
+async function authorize(): Promise<AuthorizeResult> {
 	const response = await fetch('https://slack.com/api/auth.test', {
 		headers: {
 			authorization: `Bearer ${SLACK_BOT_TOKEN}`
@@ -38,7 +38,7 @@ const app = new SlackApp({
 		SLACK_SIGNING_SECRET: SLACK_SIGNING_SECRET!,
 		SLACK_BOT_TOKEN: SLACK_BOT_TOKEN!
 	},
-	authorize: authorizeWithDebug
+	authorize: authorize
 });
 
 app.event('message', async ({ payload, context }) => {
