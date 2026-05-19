@@ -64,7 +64,10 @@ app.event('message', async ({ payload, context }) => {
 			}
 		}
 
-		console.log(`New take: ${takeText}`);
+		await db.insert(take).values({
+			content: takeText,
+			ts: payload.ts
+		});
 	}
 	return;
 });
