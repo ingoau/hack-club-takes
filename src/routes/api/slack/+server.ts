@@ -24,16 +24,15 @@ app.event('message', async ({ payload, context }) => {
 			'is_msg_unfurl' in payload.attachments[0] &&
 			payload.attachments[0].is_msg_unfurl
 		) {
-			// If no message text
-			if (takeText.trim().length === 0) {
-				// Error handling...
-				if (!payload.attachments[0].text) {
-					return;
-				}
-				takeText = payload.attachments[0].text;
-			} else {
-				takeText = `${takeText}\n${payload.attachments[0].text}`;
+			// If additional message text
+			if (!(takeText.trim().length === 0)) {
+				takeText = takeText + '\n';
 			}
+			// Error handling...
+			if (!payload.attachments[0].text) {
+				return;
+			}
+			takeText = takeText + payload.attachments[0].text;
 		}
 
 		await db.insert(take).values({
