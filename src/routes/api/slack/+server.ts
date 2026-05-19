@@ -2,9 +2,11 @@ import {
 	PayloadType,
 	SlackApp,
 	isPostedMessageEvent,
+	type AnyMessageItem,
 	type BotMessageEvent,
 	type FileShareMessageEvent,
 	type GenericMessageEvent,
+	type MessageChangedEvent,
 	type ThreadBroadcastMessageEvent
 } from 'slack-edge';
 import { SLACK_BOT_TOKEN, SLACK_SIGNING_SECRET } from '$env/static/private';
@@ -68,10 +70,20 @@ app.event('message', async ({ payload, context }) => {
 	if (
 		context.channelId === PUBLIC_CHANNEL_ID &&
 		payload.type === 'message' &&
-		isPostedMessageEvent(payload) &&
-		!payload.subtype
+		(isPostedMessageEvent(payload) ||
+			payload.subtype === 'message_changed' ||
+			payload.subtype === 'message_deleted')
 	) {
-		await addOrUpdateMessage(payload);
+		if (payload.subtype === 'message_deleted') {
+			await db.delete(take).where(eq(take.ts, payload.previous_message.ts));
+			return;
+		} else if (payload.subtype === 'message_changed') {
+			if (isPostedMessageEvent(payload.message) && !payload.message.subtype) {
+				await addOrUpdateMessage(payload.message);
+			}
+		} else if (!payload.subtype) {
+			await addOrUpdateMessage(payload);
+		}
 	}
 	return;
 });
