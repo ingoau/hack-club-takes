@@ -1,5 +1,10 @@
 @import 'tailwindcss';
 @import '@catppuccin/tailwindcss/mocha.css';
+@import '@fontsource-variable/outfit/wght.css';
+
+@theme {
+	--default-font-family: 'Outfit', sans-serif;
+}
 
 @layer base {
 	* {
