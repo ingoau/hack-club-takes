@@ -10,22 +10,22 @@
 </script>
 
 <div
-	class="flex flex-col gap-2 rounded-lg border bg-ctp-base p-4 target:border-ctp-mauve target:bg-ctp-surface0"
+	class="relative flex flex-col gap-2 overflow-hidden rounded-lg border bg-ctp-base p-4 target:border-ctp-mauve target:bg-ctp-surface0"
 	id={take.ts}
 >
+	<div class="absolute bottom-0 left-0 flex h-12 p-2 opacity-75 blur-xl">
+		<div class="h-full w-16 bg-ctp-red"></div>
+		<div class="h-full w-16 bg-ctp-blue"></div>
+	</div>
 	<div>
 		{take.content}
 	</div>
-	<div class="flex gap-2">
-		<div
-			class="flex items-center justify-center gap-2 rounded-lg border bg-ctp-red px-2 text-ctp-base"
-		>
+	<div class="z-10 flex gap-2">
+		<div class="flex items-center justify-center gap-2 rounded-lg bg-ctp-red px-2 text-ctp-base">
 			<ChevronUp class="size-4" />
 			{take.upvotes}
 		</div>
-		<div
-			class="flex items-center justify-center gap-2 rounded-lg border bg-ctp-blue px-2 text-ctp-base"
-		>
+		<div class="flex items-center justify-center gap-2 rounded-lg bg-ctp-blue px-2 text-ctp-base">
 			<ChevronDown class="size-4" />
 			{take.downvotes}
 		</div>
