@@ -10,14 +10,14 @@
 </script>
 
 <div
-	class="relative flex flex-col gap-2 overflow-hidden rounded-lg border bg-ctp-base p-4 target:border-ctp-mauve target:bg-ctp-surface0"
+	class="relative flex flex-col gap-2 overflow-hidden rounded-lg border bg-ctp-base p-2 target:border-ctp-mauve target:bg-ctp-surface0"
 	id={take.ts}
 >
 	<div class="absolute bottom-0 left-0 flex h-12 p-2 opacity-75 blur-xl">
-		<div class="h-full w-16 bg-ctp-red"></div>
-		<div class="h-full w-16 bg-ctp-blue"></div>
+		<div class="h-full w-14 bg-ctp-red"></div>
+		<div class="h-full w-14 bg-ctp-blue"></div>
 	</div>
-	<div>
+	<div class="z-10 rounded-md border bg-ctp-base/25 p-2 drop-shadow-2xl">
 		{take.content}
 	</div>
 	<div class="z-10 flex gap-2">
