@@ -7,9 +7,9 @@
 
 <div class="mx-auto flex max-w-3xl flex-col gap-2 p-4">
 	<div class="flex flex-col gap-2 py-10 text-center">
-		<h1 class="text-6xl">Hack Club Takes</h1>
+		<h1 class="text-6xl">hack club takes</h1>
 		<h2 class="text-lg">
-			Takes from <a
+			takes from <a
 				class="rounded-lg bg-ctp-surface0 p-1 text-ctp-mauve hover:underline"
 				href={`https://hackclub.enterprise.slack.com/archives/${PUBLIC_CHANNEL_ID}`}
 				target="_blank"

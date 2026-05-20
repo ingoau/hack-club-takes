@@ -47,7 +47,7 @@
 			{:else}
 				<Clipboard class="size-4" />
 			{/if}
-			Link
+			link
 		</button>
 		<a
 			class="flex items-center justify-center gap-2 rounded-lg border bg-ctp-surface0 px-2 duration-200 hover:bg-ctp-surface1 active:brightness-75"
@@ -55,7 +55,7 @@
 			target="_blank"
 		>
 			<ExternalLink class="size-4" />
-			Slack
+			slack
 		</a>
 	</div>
 </div>
