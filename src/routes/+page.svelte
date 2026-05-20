@@ -21,4 +21,15 @@
 	{#each data.takes as take (take.ts)}
 		<Take {take} />
 	{/each}
+	<div
+		class="flex items-center justify-center gap-2 pt-4 text-sm opacity-50 grayscale duration-100 hover:opacity-100 hover:grayscale-0 [&_a]:text-ctp-mauve [&_a]:hover:underline"
+	>
+		<div>
+			made with 💖 by <a href="https://ingo.au?utm_source=hc-takes" target="_blank">Ingo</a>
+		</div>
+		<div class="size-1 rounded-full bg-ctp-text"></div>
+		<div>
+			<a target="_blank" href="https://gitlab.com/ingowolf/hack-club-takes">open source</a>
+		</div>
+	</div>
 </div>
