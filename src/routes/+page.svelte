@@ -3,6 +3,7 @@
 
 	import { PUBLIC_CHANNEL_ID } from '$env/static/public';
 	import Take from '$lib/components/take.svelte';
+	import { Heart } from 'lucide-svelte';
 </script>
 
 <div class="mx-auto flex max-w-3xl flex-col gap-2 p-4">
@@ -25,7 +26,8 @@
 		class="flex items-center justify-center gap-2 pt-4 text-sm opacity-50 grayscale duration-100 hover:opacity-100 hover:grayscale-0 [&_a]:text-ctp-mauve [&_a]:hover:underline"
 	>
 		<div>
-			made with 💖 by <a href="https://ingo.au?utm_source=hc-takes" target="_blank">Ingo</a>
+			made with <Heart class="mx-px inline size-4 align-text-bottom text-ctp-red" /> by
+			<a href="https://ingo.au?utm_source=hc-takes" target="_blank">Ingo</a>
 		</div>
 		<div class="size-1 rounded-full bg-ctp-text"></div>
 		<div>
