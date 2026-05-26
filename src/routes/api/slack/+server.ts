@@ -95,6 +95,46 @@ app.event('message', async ({ payload, context }) => {
 	return;
 });
 
+app.event('reaction_added', async ({ payload, context }) => {
+	if (
+		context.channelId === PUBLIC_CHANNEL_ID &&
+		(payload.reaction === 'upvote' || payload.reaction === 'downvote')
+	) {
+		const takeRecord = await db.query.take.findFirst({
+			where: eq(take.ts, payload.item.ts)
+		});
+		if (!takeRecord) return;
+		const { upvotes, downvotes } = takeRecord;
+		await db
+			.update(take)
+			.set({
+				upvotes: payload.reaction === 'upvote' ? upvotes + 1 : upvotes,
+				downvotes: payload.reaction === 'downvote' ? downvotes + 1 : downvotes
+			})
+			.where(eq(take.ts, payload.item.ts));
+	}
+});
+
+app.event('reaction_removed', async ({ payload, context }) => {
+	if (
+		context.channelId === PUBLIC_CHANNEL_ID &&
+		(payload.reaction === 'upvote' || payload.reaction === 'downvote')
+	) {
+		const takeRecord = await db.query.take.findFirst({
+			where: eq(take.ts, payload.item.ts)
+		});
+		if (!takeRecord) return;
+		const { upvotes, downvotes } = takeRecord;
+		await db
+			.update(take)
+			.set({
+				upvotes: payload.reaction === 'upvote' ? upvotes - 1 : upvotes,
+				downvotes: payload.reaction === 'downvote' ? downvotes - 1 : downvotes
+			})
+			.where(eq(take.ts, payload.item.ts));
+	}
+});
+
 export async function POST({ request }) {
 	return await app.run(request);
 }
