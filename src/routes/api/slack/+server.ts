@@ -15,6 +15,8 @@ import { db } from '$lib/server/db/index.js';
 import { take } from '$lib/server/db/schema.js';
 import { authorize } from './authorize';
 import { eq } from 'drizzle-orm';
+import homeBlocks from './app-home.js';
+import { isAdmin } from './utils.js';
 
 const app = new SlackApp({
 	env: {
@@ -140,20 +142,7 @@ app.event('app_home_opened', async ({ payload, context }) => {
 		user_id: payload.user,
 		view: {
 			type: 'home',
-			blocks: [
-				{
-					type: 'section',
-					text: {
-						type: 'mrkdwn',
-						text: 'This is a Block Kit example'
-					},
-					accessory: {
-						type: 'image',
-						image_url: 'https://api.slack.com/img/blocks/bkb_template_images/notifications.png',
-						alt_text: 'calendar thumbnail'
-					}
-				}
-			]
+			blocks: [...homeBlocks.main, ...(isAdmin(payload.user) ? homeBlocks.admin : [])]
 		}
 	});
 });
