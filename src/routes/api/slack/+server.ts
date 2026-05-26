@@ -147,6 +147,14 @@ app.event('app_home_opened', async ({ payload, context }) => {
 	});
 });
 
+app.action(
+	{ action_id: 'sync', type: 'button' },
+	async () => {},
+	async ({ payload, context }) => {
+		console.log(payload);
+	}
+);
+
 export async function POST({ request }) {
 	return await app.run(request);
 }
