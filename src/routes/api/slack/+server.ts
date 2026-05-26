@@ -135,6 +135,29 @@ app.event('reaction_removed', async ({ payload, context }) => {
 	}
 });
 
+app.event('app_home_opened', async ({ payload, context }) => {
+	await context.client.views.publish({
+		user_id: payload.user,
+		view: {
+			type: 'home',
+			blocks: [
+				{
+					type: 'section',
+					text: {
+						type: 'mrkdwn',
+						text: 'This is a Block Kit example'
+					},
+					accessory: {
+						type: 'image',
+						image_url: 'https://api.slack.com/img/blocks/bkb_template_images/notifications.png',
+						alt_text: 'calendar thumbnail'
+					}
+				}
+			]
+		}
+	});
+});
+
 export async function POST({ request }) {
 	return await app.run(request);
 }
