@@ -1,4 +1,6 @@
-const main = [
+import type { HomeTabView } from 'slack-edge';
+
+const main: HomeTabView['blocks'] = [
 	{
 		type: 'section',
 		text: {
@@ -8,15 +10,15 @@ const main = [
 	}
 ];
 
-const admin = [
+const admin: HomeTabView['blocks'] = [
 	{
 		type: 'header',
 		text: {
 			type: 'plain_text',
 			text: 'admin dashboard',
 			emoji: true
-		},
-		level: 1
+		}
+		// level: 1
 	},
 	{
 		type: 'context',
@@ -77,3 +79,8 @@ const admin = [
 		]
 	}
 ];
+
+export default {
+	main,
+	admin
+};
