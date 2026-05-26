@@ -151,7 +151,10 @@ app.action(
 	{ action_id: 'sync', type: 'button' },
 	async () => {},
 	async ({ payload, context }) => {
-		console.log(payload);
+		// stupid slack api
+		if (!('view' in payload)) return;
+		const values = payload.view.state.values as typeof payload.state.values;
+		console.log(values);
 	}
 );
 
