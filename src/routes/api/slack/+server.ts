@@ -74,11 +74,18 @@ app.event('message', async ({ payload, context }) => {
 			payload.subtype === 'message_changed' ||
 			payload.subtype === 'message_deleted')
 	) {
+		if ('thread_ts' in payload) {
+			return;
+		}
 		if (payload.subtype === 'message_deleted') {
 			await db.delete(take).where(eq(take.ts, payload.previous_message.ts));
 			return;
 		} else if (payload.subtype === 'message_changed') {
-			if (isPostedMessageEvent(payload.message) && !payload.message.subtype) {
+			if (
+				isPostedMessageEvent(payload.message) &&
+				!payload.message.subtype &&
+				!('thread_ts' in payload.message)
+			) {
 				await addOrUpdateMessage(payload.message);
 			}
 		} else if (!payload.subtype) {
