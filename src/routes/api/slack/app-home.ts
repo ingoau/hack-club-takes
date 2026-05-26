@@ -32,7 +32,7 @@ const admin = [
 		type: 'input',
 		element: {
 			type: 'plain_text_input',
-			action_id: 'plain_text_input-action'
+			action_id: 'take_ts'
 		},
 		label: {
 			type: 'plain_text',
