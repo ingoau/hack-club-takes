@@ -8,7 +8,7 @@
 
 <div class="mx-auto flex max-w-3xl flex-col gap-2 p-4">
 	<div
-		class="relative flex flex-col gap-2 rounded-md bg-linear-to-br from-ctp-mauve-900/50 to-ctp-base py-10 text-center drop-shadow-2xl drop-shadow-ctp-mauve/20"
+		class="relative flex flex-col gap-2 rounded-md bg-linear-to-br from-ctp-mauve-900/50 to-ctp-base py-10 text-center drop-shadow-2xl drop-shadow-ctp-mauve/10"
 	>
 		<h1 class="text-6xl">hack club takes</h1>
 		<h2 class="text-lg">
