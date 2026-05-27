@@ -26,7 +26,7 @@ const admin: HomeTabView['blocks'] = [
 		elements: [
 			{
 				type: 'plain_text',
-				text: 'i will hack this club',
+				text: 'this admin panel is really fragile dont test it',
 				emoji: true
 			}
 		]
