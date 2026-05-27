@@ -6,6 +6,14 @@
 	import { Heart } from 'lucide-svelte';
 </script>
 
+<svelte:head>
+	<title>hack club takes</title>
+	<meta
+		name="description"
+		content="A collection of takes from the Hack Club Slack channel #takes"
+	/>
+</svelte:head>
+
 <div class="mx-auto flex max-w-3xl flex-col gap-2 p-4">
 	<div
 		class="relative flex flex-col gap-2 rounded-md bg-linear-to-br from-ctp-mauve-900/50 to-ctp-base py-10 text-center drop-shadow-2xl drop-shadow-ctp-mauve/10"
