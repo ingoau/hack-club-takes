@@ -1,3 +1,4 @@
+import { PUBLIC_CHANNEL_ID } from '$env/static/public';
 import type { HomeTabView } from 'slack-edge';
 
 const main: HomeTabView['blocks'] = [
@@ -5,7 +6,7 @@ const main: HomeTabView['blocks'] = [
 		type: 'section',
 		text: {
 			type: 'mrkdwn',
-			text: 'view takes at hctakes.ingo.au'
+			text: `view takes at hctakes.ingo.au, and post in <#${PUBLIC_CHANNEL_ID}>`
 		}
 	}
 ];
