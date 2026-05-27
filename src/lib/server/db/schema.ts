@@ -6,5 +6,5 @@ export const take = pgTable('take', {
 	content: text('content').notNull(),
 	upvotes: integer('upvotes').notNull().default(0),
 	downvotes: integer('downvotes').notNull().default(0),
-	deleted: boolean('deleted').notNull().default(false)
+	hidden: boolean('hidden').notNull().default(false)
 });

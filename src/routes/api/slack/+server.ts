@@ -242,7 +242,7 @@ app.action(
 		await db
 			.update(take)
 			.set({
-				deleted: true
+				hidden: true
 			})
 			.where(eq(take.ts, takeTs));
 	}
@@ -259,7 +259,7 @@ app.action(
 		await db
 			.update(take)
 			.set({
-				deleted: false
+				hidden: false
 			})
 			.where(eq(take.ts, takeTs));
 	}
