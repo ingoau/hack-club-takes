@@ -178,6 +178,13 @@ function getTakeTs(payload: BlockAction<ButtonAction>): string | undefined {
 	return takeTs;
 }
 
+function addDotToTimestamp(ts: string) {
+	const micros = ts.slice(-6);
+	const seconds = ts.slice(0, -6);
+
+	return `${seconds}.${micros}`;
+}
+
 app.action(
 	{ action_id: 'sync', type: 'button' },
 	async () => {},
@@ -186,8 +193,9 @@ app.action(
 		if (!takeTs) return;
 		const foundMessages = await context.client.conversations.history({
 			channel: PUBLIC_CHANNEL_ID,
-			latest: takeTs,
-			limit: 1
+			latest: addDotToTimestamp(takeTs),
+			limit: 1,
+			inclusive: true
 		});
 		if (foundMessages.messages && foundMessages.messages.length > 0) {
 			addOrUpdateMessage(foundMessages.messages[0]);
