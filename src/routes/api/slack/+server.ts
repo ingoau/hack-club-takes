@@ -1,14 +1,10 @@
 import {
-	PayloadType,
 	SlackApp,
 	isPostedMessageEvent,
-	type AnyMessageItem,
 	type BlockAction,
-	type BotMessageEvent,
 	type ButtonAction,
 	type FileShareMessageEvent,
 	type GenericMessageEvent,
-	type MessageChangedEvent,
 	type ThreadBroadcastMessageEvent,
 	type ConversationsHistoryResponse
 } from 'slack-edge';
