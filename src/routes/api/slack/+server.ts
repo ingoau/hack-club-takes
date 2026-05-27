@@ -36,7 +36,7 @@ async function addOrUpdateMessage(
 		| ThreadBroadcastMessageEvent
 		| NonNullable<ConversationsHistoryResponse['messages']>[number]
 ) {
-	if (!(payload.text && payload.ts)) return;
+	if (!payload.ts) return;
 	let takeText = payload.text;
 
 	// Handle forwards
@@ -46,7 +46,7 @@ async function addOrUpdateMessage(
 		payload.attachments[0].is_msg_unfurl
 	) {
 		// If additional message text
-		if (!(takeText.trim().length === 0)) {
+		if (!((takeText || '').trim().length === 0)) {
 			takeText = takeText + '\n';
 		}
 		// Error handling...
