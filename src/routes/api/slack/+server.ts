@@ -192,7 +192,6 @@ app.action(
 	async ({ payload, context }) => {
 		if (!isAdmin(payload.user.id)) return;
 		const takeTs = getTakeTs(payload);
-		console.log(takeTs);
 		if (!takeTs) return;
 		// Find message
 		const foundMessages = await context.client.conversations.history({
@@ -238,7 +237,6 @@ app.action(
 	async ({ payload }) => {
 		if (!isAdmin(payload.user.id)) return;
 		const takeTs = getTakeTs(payload);
-		console.log(takeTs);
 		if (!takeTs) return;
 
 		await db
@@ -256,7 +254,6 @@ app.action(
 	async ({ payload }) => {
 		if (!isAdmin(payload.user.id)) return;
 		const takeTs = getTakeTs(payload);
-		console.log(takeTs);
 		if (!takeTs) return;
 
 		await db
