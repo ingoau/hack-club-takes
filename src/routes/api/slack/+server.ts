@@ -233,6 +233,40 @@ app.action(
 	}
 );
 
+app.action(
+	{ action_id: 'hide', type: 'button' },
+	async () => {},
+	async ({ payload }) => {
+		const takeTs = getTakeTs(payload);
+		console.log(takeTs);
+		if (!takeTs) return;
+
+		await db
+			.update(take)
+			.set({
+				deleted: true
+			})
+			.where(eq(take.ts, takeTs));
+	}
+);
+
+app.action(
+	{ action_id: 'show', type: 'button' },
+	async () => {},
+	async ({ payload }) => {
+		const takeTs = getTakeTs(payload);
+		console.log(takeTs);
+		if (!takeTs) return;
+
+		await db
+			.update(take)
+			.set({
+				deleted: false
+			})
+			.where(eq(take.ts, takeTs));
+	}
+);
+
 export async function POST({ request }) {
 	return await app.run(request);
 }
