@@ -10,7 +10,7 @@
 	<title>hack club takes</title>
 	<meta
 		name="description"
-		content="A collection of takes from the Hack Club Slack channel #takes"
+		content="a collection of takes from the hack club slack channel #takes"
 	/>
 </svelte:head>
 
