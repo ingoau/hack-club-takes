@@ -154,7 +154,15 @@ app.action(
 		// stupid slack api
 		if (!('view' in payload)) return;
 		const values = payload.view.state.values as typeof payload.state.values;
-		console.log(values);
+
+		const block = payload.view.blocks.filter(
+			(element) => element.type == 'input' && element.element.action_id === 'take_ts'
+		)[0];
+		if (!block) return;
+		const blockId = block.block_id;
+		if (!blockId) return;
+
+		const inputtedTakeTs = values[blockId].take_ts.value;
 	}
 );
 
