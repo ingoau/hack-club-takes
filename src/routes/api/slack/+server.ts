@@ -163,6 +163,14 @@ app.action(
 		if (!blockId) return;
 
 		const inputtedTakeTs = values[blockId].take_ts.value;
+		if (!inputtedTakeTs) return;
+
+		// Remove website link and just get timestamp
+		const websiteLinkTakeTs = inputtedTakeTs.split('#')[inputtedTakeTs.split('#').length - 1];
+		// Remove slack prefix
+		const takeTs = websiteLinkTakeTs.split('/p')[websiteLinkTakeTs.split('/p').length - 1];
+
+		console.log(takeTs);
 	}
 );
 
