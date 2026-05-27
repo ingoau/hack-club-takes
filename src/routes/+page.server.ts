@@ -9,7 +9,7 @@ export const load = async (event) => {
 		const { redirect: shouldRedirect, url } = await auth.api.signInWithOAuth2({
 			body: {
 				providerId: 'hca',
-				callbackURL: event.url.host
+				callbackURL: event.url.toString()
 			}
 		});
 		if (shouldRedirect) {
