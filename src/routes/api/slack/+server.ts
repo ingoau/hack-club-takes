@@ -20,7 +20,8 @@ import { isAdmin } from './utils.js';
 const app = new SlackApp({
 	env: {
 		SLACK_SIGNING_SECRET: SLACK_SIGNING_SECRET!,
-		SLACK_BOT_TOKEN: SLACK_BOT_TOKEN!
+		SLACK_BOT_TOKEN: SLACK_BOT_TOKEN!,
+		SLACK_LOGGING_LEVEL: 'DEBUG'
 	},
 	authorize: authorize
 });
@@ -266,6 +267,5 @@ app.action(
 );
 
 export async function POST({ request }) {
-	console.log(request);
 	return await app.run(request);
 }
