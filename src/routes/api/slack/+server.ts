@@ -3,7 +3,9 @@ import {
 	SlackApp,
 	isPostedMessageEvent,
 	type AnyMessageItem,
+	type BlockAction,
 	type BotMessageEvent,
+	type ButtonAction,
 	type FileShareMessageEvent,
 	type GenericMessageEvent,
 	type MessageChangedEvent,
@@ -147,29 +149,34 @@ app.event('app_home_opened', async ({ payload, context }) => {
 	});
 });
 
+function getTakeTs(payload: BlockAction<ButtonAction>): string | undefined {
+	// stupid slack api
+	if (!('view' in payload)) return;
+	const values = payload.view.state.values as typeof payload.state.values;
+
+	const block = payload.view.blocks.filter(
+		(element) => element.type == 'input' && element.element.action_id === 'take_ts'
+	)[0];
+	if (!block) return;
+	const blockId = block.block_id;
+	if (!blockId) return;
+
+	const inputtedTakeTs = values[blockId].take_ts.value;
+	if (!inputtedTakeTs) return;
+
+	// Remove website link and just get timestamp
+	const websiteLinkTakeTs = inputtedTakeTs.split('#')[inputtedTakeTs.split('#').length - 1];
+	// Remove slack prefix
+	const takeTs = websiteLinkTakeTs.split('/p')[websiteLinkTakeTs.split('/p').length - 1];
+
+	return takeTs;
+}
+
 app.action(
 	{ action_id: 'sync', type: 'button' },
 	async () => {},
 	async ({ payload, context }) => {
-		// stupid slack api
-		if (!('view' in payload)) return;
-		const values = payload.view.state.values as typeof payload.state.values;
-
-		const block = payload.view.blocks.filter(
-			(element) => element.type == 'input' && element.element.action_id === 'take_ts'
-		)[0];
-		if (!block) return;
-		const blockId = block.block_id;
-		if (!blockId) return;
-
-		const inputtedTakeTs = values[blockId].take_ts.value;
-		if (!inputtedTakeTs) return;
-
-		// Remove website link and just get timestamp
-		const websiteLinkTakeTs = inputtedTakeTs.split('#')[inputtedTakeTs.split('#').length - 1];
-		// Remove slack prefix
-		const takeTs = websiteLinkTakeTs.split('/p')[websiteLinkTakeTs.split('/p').length - 1];
-
+		const takeTs = getTakeTs(payload);
 		console.log(takeTs);
 	}
 );
