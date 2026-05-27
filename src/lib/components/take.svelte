@@ -17,7 +17,7 @@
 		<div class="h-full w-14 bg-ctp-red"></div>
 		<div class="h-full w-14 bg-ctp-blue"></div>
 	</div>
-	<div class="z-10 rounded-md border bg-ctp-mantle p-2 drop-shadow-2xl">
+	<div class="z-10 rounded-md border bg-ctp-mantle p-2 drop-shadow-2xl whitespace-pre-wrap">
 		{take.content}
 	</div>
 	<div class="z-10 flex gap-2">
