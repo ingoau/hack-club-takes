@@ -198,10 +198,33 @@ app.action(
 			inclusive: true
 		});
 		if (foundMessages.messages && foundMessages.messages.length > 0) {
-			addOrUpdateMessage({
+			await addOrUpdateMessage({
 				...foundMessages.messages[0],
 				ts: takeTs
 			});
+
+			const reactions = await context.client.reactions.get({
+				timestamp: addDotToTimestamp(takeTs),
+				channel: PUBLIC_CHANNEL_ID
+			});
+
+			if (!reactions.message || !reactions.message.reactions) return;
+			const upvoteReaction = reactions.message.reactions.find(
+				(reaction) => reaction.name === 'upvote'
+			);
+			const upvoteCount = upvoteReaction ? upvoteReaction.count : 0;
+			const downvoteReaction = reactions.message.reactions.find(
+				(reaction) => reaction.name === 'downvote'
+			);
+			const downvoteCount = downvoteReaction ? downvoteReaction.count : 0;
+
+			await db
+				.update(take)
+				.set({
+					upvotes: upvoteCount,
+					downvotes: downvoteCount
+				})
+				.where(eq(take.ts, takeTs));
 		}
 	}
 );
