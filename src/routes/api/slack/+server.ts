@@ -70,6 +70,7 @@ async function addOrUpdateMessage(
 		return;
 	}
 
+	if (!takeText) return;
 	await db.insert(take).values({
 		content: takeText,
 		ts: payload.ts
