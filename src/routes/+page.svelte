@@ -12,7 +12,7 @@
 	>
 		<h1 class="text-6xl">hack club takes</h1>
 		<h2 class="text-lg">
-			takes from <a
+			{data.takes.length} takes from <a
 				class="rounded-lg bg-ctp-surface0 p-1 text-ctp-mauve hover:underline"
 				href={`https://hackclub.enterprise.slack.com/archives/${PUBLIC_CHANNEL_ID}`}
 				target="_blank"
