@@ -266,5 +266,6 @@ app.action(
 );
 
 export async function POST({ request }) {
+	console.log(request);
 	return await app.run(request);
 }
