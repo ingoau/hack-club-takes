@@ -9,7 +9,8 @@ import {
 	type FileShareMessageEvent,
 	type GenericMessageEvent,
 	type MessageChangedEvent,
-	type ThreadBroadcastMessageEvent
+	type ThreadBroadcastMessageEvent,
+	type ConversationsHistoryResponse
 } from 'slack-edge';
 import { SLACK_BOT_TOKEN, SLACK_SIGNING_SECRET } from '$env/static/private';
 import { PUBLIC_CHANNEL_ID } from '$env/static/public';
@@ -29,8 +30,13 @@ const app = new SlackApp({
 });
 
 async function addOrUpdateMessage(
-	payload: GenericMessageEvent | FileShareMessageEvent | ThreadBroadcastMessageEvent
+	payload:
+		| GenericMessageEvent
+		| FileShareMessageEvent
+		| ThreadBroadcastMessageEvent
+		| NonNullable<ConversationsHistoryResponse['messages']>[number]
 ) {
+	if (!(payload.text && payload.ts)) return;
 	let takeText = payload.text;
 
 	// Handle forwards
@@ -177,7 +183,14 @@ app.action(
 	async () => {},
 	async ({ payload, context }) => {
 		const takeTs = getTakeTs(payload);
-		console.log(takeTs);
+		const foundMessages = await context.client.conversations.history({
+			channel: PUBLIC_CHANNEL_ID,
+			latest: takeTs,
+			limit: 1
+		});
+		if (foundMessages.messages && foundMessages.messages.length > 0) {
+			addOrUpdateMessage(foundMessages.messages[0]);
+		}
 	}
 );
 
