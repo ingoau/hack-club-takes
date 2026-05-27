@@ -207,13 +207,12 @@ app.action(
 				timestamp: addDotToTimestamp(takeTs),
 				channel: PUBLIC_CHANNEL_ID
 			});
-
-			if (!reactions.message || !reactions.message.reactions) return;
-			const upvoteReaction = reactions.message.reactions.find(
+			if (!reactions.message) return;
+			const upvoteReaction = (reactions.message.reactions || []).find(
 				(reaction) => reaction.name === 'upvote'
 			);
 			const upvoteCount = upvoteReaction ? upvoteReaction.count : 0;
-			const downvoteReaction = reactions.message.reactions.find(
+			const downvoteReaction = (reactions.message.reactions || []).find(
 				(reaction) => reaction.name === 'downvote'
 			);
 			const downvoteCount = downvoteReaction ? downvoteReaction.count : 0;
