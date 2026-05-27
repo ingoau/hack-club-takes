@@ -198,7 +198,10 @@ app.action(
 			inclusive: true
 		});
 		if (foundMessages.messages && foundMessages.messages.length > 0) {
-			addOrUpdateMessage(foundMessages.messages[0]);
+			addOrUpdateMessage({
+				...foundMessages.messages[0],
+				ts: takeTs
+			});
 		}
 	}
 );
