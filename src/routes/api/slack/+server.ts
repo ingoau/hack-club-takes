@@ -175,6 +175,10 @@ function getTakeTs(payload: BlockAction<ButtonAction>): string | undefined {
 	// Remove slack prefix
 	const takeTs = websiteLinkTakeTs.split('/p')[websiteLinkTakeTs.split('/p').length - 1];
 
+	if (!takeTs.includes('.')) {
+		return addDotToTimestamp(takeTs);
+	}
+
 	return takeTs;
 }
 
@@ -190,10 +194,11 @@ app.action(
 	async () => {},
 	async ({ payload, context }) => {
 		const takeTs = getTakeTs(payload);
+		console.log(takeTs);
 		if (!takeTs) return;
 		const foundMessages = await context.client.conversations.history({
 			channel: PUBLIC_CHANNEL_ID,
-			latest: addDotToTimestamp(takeTs),
+			latest: takeTs,
 			limit: 1,
 			inclusive: true
 		});
@@ -204,7 +209,7 @@ app.action(
 			});
 
 			const reactions = await context.client.reactions.get({
-				timestamp: addDotToTimestamp(takeTs),
+				timestamp: takeTs,
 				channel: PUBLIC_CHANNEL_ID
 			});
 			if (!reactions.message) return;
