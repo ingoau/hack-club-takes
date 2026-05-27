@@ -190,6 +190,7 @@ app.action(
 	{ action_id: 'sync', type: 'button' },
 	async () => {},
 	async ({ payload, context }) => {
+		if (!isAdmin(payload.user.id)) return;
 		const takeTs = getTakeTs(payload);
 		console.log(takeTs);
 		if (!takeTs) return;
@@ -235,6 +236,7 @@ app.action(
 	{ action_id: 'hide', type: 'button' },
 	async () => {},
 	async ({ payload }) => {
+		if (!isAdmin(payload.user.id)) return;
 		const takeTs = getTakeTs(payload);
 		console.log(takeTs);
 		if (!takeTs) return;
@@ -252,6 +254,7 @@ app.action(
 	{ action_id: 'show', type: 'button' },
 	async () => {},
 	async ({ payload }) => {
+		if (!isAdmin(payload.user.id)) return;
 		const takeTs = getTakeTs(payload);
 		console.log(takeTs);
 		if (!takeTs) return;
