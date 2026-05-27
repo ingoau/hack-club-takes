@@ -23,6 +23,8 @@
 	</div>
 	{#each data.takes as take (take.ts)}
 		<Take {take} />
+	{:else}
+		<div class="p-4 text-center">There are no takes or something is broken</div>
 	{/each}
 	<div
 		class="flex items-center justify-center gap-2 pt-4 text-sm opacity-50 grayscale duration-100 hover:opacity-100 hover:grayscale-0 [&_a]:text-ctp-mauve [&_a]:hover:underline"
