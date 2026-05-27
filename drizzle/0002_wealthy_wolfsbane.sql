@@ -1,0 +1,1 @@
+ALTER TABLE "take" RENAME COLUMN "deleted" TO "hidden";
