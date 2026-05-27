@@ -196,18 +196,18 @@ app.action(
 		const takeTs = getTakeTs(payload);
 		console.log(takeTs);
 		if (!takeTs) return;
+		// Find message
 		const foundMessages = await context.client.conversations.history({
 			channel: PUBLIC_CHANNEL_ID,
 			latest: takeTs,
 			limit: 1,
 			inclusive: true
 		});
+		// If exists
 		if (foundMessages.messages && foundMessages.messages.length > 0) {
-			await addOrUpdateMessage({
-				...foundMessages.messages[0],
-				ts: takeTs
-			});
+			await addOrUpdateMessage(foundMessages.messages[0]);
 
+			// Get reactions
 			const reactions = await context.client.reactions.get({
 				timestamp: takeTs,
 				channel: PUBLIC_CHANNEL_ID
@@ -222,6 +222,7 @@ app.action(
 			);
 			const downvoteCount = downvoteReaction ? downvoteReaction.count : 0;
 
+			// Update reactions in DB
 			await db
 				.update(take)
 				.set({
