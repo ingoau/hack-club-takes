@@ -5,22 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1779011939358,
-      "tag": "0000_useful_paladin",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1779067265486,
-      "tag": "0001_wakeful_gladiator",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1779869938974,
-      "tag": "0002_wealthy_wolfsbane",
+      "when": 1779870007853,
+      "tag": "0000_sticky_crystal",
       "breakpoints": true
     }
   ]

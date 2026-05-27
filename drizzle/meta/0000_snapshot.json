@@ -1,5 +1,5 @@
 {
-  "id": "49295982-84ee-43a5-80f6-81c19438d141",
+  "id": "0c3a1d1a-7f23-49fd-b192-128c337d8089",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -33,6 +33,13 @@
           "primaryKey": false,
           "notNull": true,
           "default": 0
+        },
+        "hidden": {
+          "name": "hidden",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
         }
       },
       "indexes": {},
