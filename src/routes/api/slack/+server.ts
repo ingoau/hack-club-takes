@@ -183,6 +183,7 @@ app.action(
 	async () => {},
 	async ({ payload, context }) => {
 		const takeTs = getTakeTs(payload);
+		if (!takeTs) return;
 		const foundMessages = await context.client.conversations.history({
 			channel: PUBLIC_CHANNEL_ID,
 			latest: takeTs,
