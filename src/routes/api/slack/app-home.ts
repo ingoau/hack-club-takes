@@ -76,16 +76,6 @@ const admin: HomeTabView['blocks'] = [
 				},
 				value: 'sync',
 				action_id: 'sync'
-			},
-			{
-				type: 'button',
-				text: {
-					type: 'plain_text',
-					text: 'sync all',
-					emoji: true
-				},
-				value: 'sync_all',
-				action_id: 'sync_all'
 			}
 		]
 	}
