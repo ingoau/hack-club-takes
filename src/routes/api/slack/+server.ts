@@ -5,6 +5,7 @@ import {
 	type ButtonAction,
 	type FileShareMessageEvent,
 	type GenericMessageEvent,
+	type SlackAPIClient,
 	type ThreadBroadcastMessageEvent,
 	type ConversationsHistoryResponse
 } from 'slack-edge';
@@ -192,6 +193,40 @@ function addDotToTimestamp(ts: string) {
 	return `${seconds}.${micros}`;
 }
 
+async function syncTake(takeTs: string, client: SlackAPIClient) {
+	const foundMessages = await client.conversations.history({
+		channel: PUBLIC_CHANNEL_ID,
+		latest: takeTs,
+		limit: 1,
+		inclusive: true
+	});
+	if (!foundMessages.messages || foundMessages.messages.length === 0) return;
+
+	await addOrUpdateMessage(foundMessages.messages[0]);
+
+	const reactions = await client.reactions.get({
+		timestamp: takeTs,
+		channel: PUBLIC_CHANNEL_ID
+	});
+	if (!reactions.message) return;
+	const upvoteReaction = (reactions.message.reactions || []).find(
+		(reaction) => reaction.name === 'upvote'
+	);
+	const upvoteCount = upvoteReaction ? upvoteReaction.count : 0;
+	const downvoteReaction = (reactions.message.reactions || []).find(
+		(reaction) => reaction.name === 'downvote'
+	);
+	const downvoteCount = downvoteReaction ? downvoteReaction.count : 0;
+
+	await db
+		.update(take)
+		.set({
+			upvotes: upvoteCount,
+			downvotes: downvoteCount
+		})
+		.where(eq(take.ts, takeTs));
+}
+
 app.action(
 	{ action_id: 'sync', type: 'button' },
 	async () => {},
@@ -199,40 +234,19 @@ app.action(
 		if (!isAdmin(payload.user.id)) return;
 		const takeTs = getTakeTs(payload);
 		if (!takeTs) return;
-		// Find message
-		const foundMessages = await context.client.conversations.history({
-			channel: PUBLIC_CHANNEL_ID,
-			latest: takeTs,
-			limit: 1,
-			inclusive: true
-		});
-		// If exists
-		if (foundMessages.messages && foundMessages.messages.length > 0) {
-			await addOrUpdateMessage(foundMessages.messages[0]);
+		await syncTake(takeTs, context.client);
+	}
+);
 
-			// Get reactions
-			const reactions = await context.client.reactions.get({
-				timestamp: takeTs,
-				channel: PUBLIC_CHANNEL_ID
-			});
-			if (!reactions.message) return;
-			const upvoteReaction = (reactions.message.reactions || []).find(
-				(reaction) => reaction.name === 'upvote'
-			);
-			const upvoteCount = upvoteReaction ? upvoteReaction.count : 0;
-			const downvoteReaction = (reactions.message.reactions || []).find(
-				(reaction) => reaction.name === 'downvote'
-			);
-			const downvoteCount = downvoteReaction ? downvoteReaction.count : 0;
+app.action(
+	{ action_id: 'sync_all', type: 'button' },
+	async () => {},
+	async ({ payload, context }) => {
+		if (!isAdmin(payload.user.id)) return;
+		const takes = await db.select({ ts: take.ts }).from(take);
 
-			// Update reactions in DB
-			await db
-				.update(take)
-				.set({
-					upvotes: upvoteCount,
-					downvotes: downvoteCount
-				})
-				.where(eq(take.ts, takeTs));
+		for (const { ts } of takes) {
+			await syncTake(ts, context.client);
 		}
 	}
 );
