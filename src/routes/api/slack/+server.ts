@@ -17,6 +17,7 @@ import { authorize } from './authorize';
 import { eq } from 'drizzle-orm';
 import homeBlocks from './app-home.js';
 import { isAdmin } from './utils.js';
+import { waitUntil } from '@vercel/functions';
 
 const app = new SlackApp({
 	env: {
@@ -26,10 +27,6 @@ const app = new SlackApp({
 	},
 	authorize: authorize
 });
-
-function isThreadReply(payload: { ts?: string; thread_ts?: string }) {
-	return Boolean(payload.thread_ts && payload.thread_ts !== payload.ts);
-}
 
 async function addOrUpdateMessage(
 	payload:
@@ -87,18 +84,17 @@ app.event('message', async ({ payload, context }) => {
 			payload.subtype === 'message_changed' ||
 			payload.subtype === 'message_deleted')
 	) {
-		if (isThreadReply(payload)) {
+		if ('thread_ts' in payload) {
 			return;
 		}
 		if (payload.subtype === 'message_deleted') {
-			if (isThreadReply(payload.previous_message)) return;
 			await db.delete(take).where(eq(take.ts, payload.previous_message.ts));
 			return;
 		} else if (payload.subtype === 'message_changed') {
 			if (
 				isPostedMessageEvent(payload.message) &&
 				!payload.message.subtype &&
-				!isThreadReply(payload.message)
+				!('thread_ts' in payload.message)
 			) {
 				await addOrUpdateMessage(payload.message);
 			}
@@ -285,23 +281,6 @@ app.action(
 	}
 );
 
-export async function POST({ request, platform }) {
-	const platformContext = (
-		platform as { context?: { waitUntil?: (promise: Promise<unknown>) => void } } | undefined
-	)?.context;
-	const waitUntil = platformContext?.waitUntil?.bind(platformContext);
-
-	if (waitUntil) {
-		return await app.run(request, { waitUntil });
-	}
-
-	const pending: Promise<unknown>[] = [];
-	const response = await app.run(request, {
-		waitUntil: (promise) => {
-			pending.push(promise);
-		}
-	});
-
-	await Promise.all(pending);
-	return response;
+export async function POST({ request }) {
+	return await app.run(request, { waitUntil });
 }
