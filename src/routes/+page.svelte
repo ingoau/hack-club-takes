@@ -44,7 +44,7 @@
 		</div>
 		<div class="size-1 rounded-full bg-ctp-text"></div>
 		<div>
-			<a target="_blank" href="https://gitlab.com/ingowolf/hack-club-takes">open source</a>
+			<a target="_blank" href="https://github.com/ingoau/hack-club-takes">open source</a>
 		</div>
 	</div>
 </div>
